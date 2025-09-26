@@ -5,7 +5,7 @@
 <div align="center">
   <img src="images/braincorl.png" width="70%" alt="BrainCoRL Figure">
   
-  **(a)** The voxelwise brain encoding problem setup.  **(b)** The meta-learning Paradigm.  **(c,d)** Results (explained variance) evaluation.
+  **(a)** The voxelwise brain encoding problem setup.  **(b)** The meta-learning paradigm.  **(c,d)** Results (explained variance) evaluation.
 </div>
 
 
@@ -69,4 +69,4 @@ If you find this project useful for your research, please consider citing:
 ```
 
 ## Contact
-If you have any questions, please feel free to [create issues❓](https://github.com/leomqyu/BraInCoRL/issues) or [contact me 📧](leomqyu@outlook.com).
+If you have any questions, please feel free to [create issues❓](https://github.com/leomqyu/BraInCoRL/issues) or [contact me 📧](mailto:leomqyu@outlook.com).
