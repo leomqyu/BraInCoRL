@@ -39,7 +39,14 @@ pytorch==2.5.1
     Download model checkpoints from [here]() and place them in `checkpoints/` folder.
 
 1. Cortex beta values and image embedding data  
-    Place these data in `data/` folder.
+    Place these data in `data/` folder, with the below structure:
+
+    ```
+    ./data/
+    ├── in_ctx_betas.npz
+    ├── in_ctx_imgs.npz
+    └── query_imgs.npz
+    ```
 
 ### 3. Train
 

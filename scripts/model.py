@@ -196,8 +196,7 @@ class HyperweightsPredictorModel(nn.Module):
                                          ResidualBlock(feat_in=self.internal_emb_dim, feat_out=self.embed_dim + 1, feat_hidden=self.early_hidden_dim, 
                                                          drop_out=self.dropout, use_norm=True))
 
-    def forward(self, ic_img, ic_nrn, unknown_img, return_topk=False, k=20):
-        # print('[DEBUG] k', k)
+    def forward(self, ic_img, ic_nrn, unknown_img):
         """
         x is a batch of image embeddings, returned is the predicted activation for the batch of image in a single voxel
         x.shape is (B, S, E) where B is batch size, S is the num of images for in context learning, E is the length of image embeddings (512)
@@ -226,26 +225,6 @@ class HyperweightsPredictorModel(nn.Module):
         x = self.input_dropout(x)
         x = self.transformer(x)
 
-        if return_topk:                            
-            # attn = self.transformer[-1].last_attn   #
-            # # print('[DEBUG] attn.shape', attn.shape) # torch.Size([64, 34, 34]): (B, num_tok+4, num_tok+4)
-            # cls_attn = attn[:, 0, self.num_reg_tok:]   # CLS‑token → IC‑image weights
-            # # cls_attn = attn[:, self.num_reg_tok:, 0]   # CLS‑token → IC‑image weights   # exp, changed
-            # # print('[WARNING] changed model attn get')
-            # # print('[DEBUG] cls_attn.shape', cls_attn.shape) # torch.Size([64, 30]): (B, num_tok+4, num_tok+4)
-            # k = min(k, cls_attn.size(1))
-            # topk_idx = cls_attn.topk(k, dim=-1).indices 
-              
-            attn = self.transformer[-1].last_attn
-            # print('[DEBUG] attn.shape', attn.shape) # torch.Size([64, 34, 34]): (B, num_tok+4, num_tok+4)
-            cls_attn = attn[:, 0, self.num_reg_tok:]   # CLS‑token → IC‑image weights
-            # cls_attn = attn[:, self.num_reg_tok:, 0]   # CLS‑token → IC‑image weights   # exp, changed
-            # print('[WARNING] changed model attn get')
-            # print('[DEBUG] cls_attn.shape', cls_attn.shape) # torch.Size([64, 30]): (B, num_tok+4, num_tok+4)
-            k = min(k, cls_attn.size(1))
-            # print('[DEBUG] k', k)
-            topk_idx = cls_attn.topk(k, dim=-1).indices   
-
         # Perform hyperweights prediction
         pred_tok = x[:, 0, :]  # [B, E+1]
 
@@ -253,8 +232,6 @@ class HyperweightsPredictorModel(nn.Module):
 
         pred = load_weights_and_predict(weights, unknown_img)
 
-        if return_topk:
-            return pred, weights, topk_idx
         return pred, weights
 
 class HyperweightsPredictorTrainerComb(pl.LightningModule):

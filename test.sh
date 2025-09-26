@@ -12,7 +12,7 @@ ckpt_dir="${work_base}/checkpoints"
 cd "${work_base}"
 mkdir -p $results_dir
 
-bb='CLIP'
+bb='CLIP' 
 data_dir="${work_base}/data"
 
 nohup \

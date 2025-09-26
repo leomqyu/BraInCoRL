@@ -19,7 +19,7 @@ from lightning.pytorch.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 from lightning.pytorch.loggers import CSVLogger
 
-assert torch.cuda.is_available()
+assert torch.cuda.is_available() 
 
 seed = random.randint(0, 7777)
 print(f'[INFO] seed set for random in train_pl.py is {seed}')

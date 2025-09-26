@@ -147,8 +147,6 @@ def main(args):
                 true_weights_l = []     
                 pred_weights_l = [] # each element is the predicted weights for a single voxel, np_array of shape (emb_len+1,), total num of ele: num_nrn
                 
-                top20_keys_l = []   # for top contrib img
-
                 dataset = IcltTestTime(ic_img, ic_nrn, uk_img, uk_nrn, gt)
                 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
@@ -172,17 +170,6 @@ def main(args):
 
                             if not save_img_wise:
                                 pred_nrn, pred_weights = model(ic_img_te, ic_nrn_te, uk_img_te)
-                            else:
-                                pred_nrn, pred_weights, top20_img_rel_idx = model(
-                                        ic_img_te, ic_nrn_te, uk_img_te,
-                                        return_topk=True, k=500)
-                                abs_map = torch.as_tensor(test_time_icl_idx, device=top20_img_rel_idx.device) 
-                                # print('[DEBUG] len(test_time_icl_idx), len(top20_img_rel_idx)', len(test_time_icl_idx), len(top20_img_rel_idx))     
-                                # here is test_time_icl_idx, means the ith in the tensor (tensor[i]) is the idx of the image in s{}_unique_img_feats_normed.npy 
-                                top20_keys_l.append(abs_map[top20_img_rel_idx].cpu())
-                                # here the list stores the top20 images' idx in the s{}_unique_img_feats_normed.npy 
-                                # then just retrieve the img_idx.json and find s{}_unique to get the corresponding image key
-                            
                             
                             pred_nrn, pred_weights = pred_nrn.float(), pred_weights.float()  # Convert output to float
                                 
@@ -262,10 +249,6 @@ def main(args):
                 diff_ep_ev_list_img_wise.append(img_wise_ev[None, :])
                 diff_ep_cos_sim_list_img_wise.append(img_wise_cos_sim[None, :])
                 diff_ep_pt_mse_list_img_wise.append(img_wise_mse[None, :])
-
-                if model_type == 'gt_weights':
-                    top20_keys = torch.cat(top20_keys_l, dim=0)          # (num_vox, 20)
-                    np.save(result_dir / f'num_ic={num_ic}_ep={ep}_top20_icl_idx.npy', top20_keys.numpy())
 
                 pred_nrn_np = pred_nrn.cpu().numpy()
                 np.save(result_dir / f'num_ic={num_ic}_ep={ep}_pred_nrn.npy', pred_nrn_np)

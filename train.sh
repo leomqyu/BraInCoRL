@@ -10,7 +10,7 @@ results_dir="${work_base}/results/train/${job_name}"
 cd "${work_base}"
 mkdir -p $results_dir
 
-data_dir="${work_base}/data"
+data_dir="${work_base}/data" 
 
 backup_file_dir="${results_dir}/backup_files"
 mkdir -p $backup_file_dir

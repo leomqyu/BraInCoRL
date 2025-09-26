@@ -12,7 +12,7 @@ from utils import load_weights_and_predict
 from utils import *
 
 seed = random.randint(0, 7777)
-print(f'[INFO] seed set for random in pipeline.py is {seed}')
+# print(f'[INFO] seed set for random in pipeline.py is {seed}')
 random.seed(seed)
 
 class PLTrainVal(pl.LightningModule):
