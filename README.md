@@ -2,10 +2,11 @@
 
 [arXiv](https://arxiv.org/abs/2505.15813) | [PDF](https://arxiv.org/pdf/2505.15813)
 
-<p align="center">
-  <img src="images/braincorl.png" width=70%> <br>
-  (a) The voxelwise brain encoding problem setup (b) Meta-learning Paradigm (c,d) Results evaluation (explained variance).
-</p>
+<div align="center">
+  <img src="images/braincorl.png" width="70%" alt="BrainCoRL Figure">
+  
+  **(a)** The voxelwise brain encoding problem setup.  **(b)** The meta-learning Paradigm.  **(c,d)** Results (explained variance) evaluation.
+</div>
 
 
 
