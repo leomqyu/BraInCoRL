@@ -36,10 +36,10 @@ pytorch==2.5.1
 ### 2. Preparation
 
 1. Pretrained models  
-    Download model checkpoints from [here]() and place them in `checkpoints/` folder.
+    Download model checkpoints from [here]() and place them in `./checkpoints/` folder.
 
 1. Cortex beta values and image embedding data  
-    Place these data in `data/` folder, with the below structure:
+    Place these data in `./data/` folder, with the below structure:
 
     ```
     ./data/
