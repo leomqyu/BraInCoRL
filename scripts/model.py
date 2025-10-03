@@ -243,7 +243,7 @@ class HyperweightsPredictorTrainerComb(pl.LightningModule):
                 dropout=None,
                 ############## above is the model struct, below is pipeline related ##############
                 max_in_context=500, min_in_context=30, max_unknown=10,
-                lr=1e-3, weight_decay=1e-4, loss_type='wsim', lambda_l2=1, # loss type is wsim or pmse
+                lr=1e-3, weight_decay=1e-4, loss_type='pmse', lambda_l2=1,
                 sched_step_size=30, sched_factor=0.1,
                 result_dir=None):
         
@@ -339,7 +339,7 @@ class HyperweightsPredictorTrainerComb(pl.LightningModule):
         self.lr = lr
         self.weight_decay = weight_decay
         self.loss_type = loss_type
-        assert self.loss_type in ['wsim', 'pmse'], f'{self.loss_type} unknown'
+        assert self.loss_type in ['pmse'], f'{self.loss_type} unknown'
         self.lambda_l2 = lambda_l2
 
         print(f'[DEBUG] wd={self.weight_decay:e}')
@@ -449,11 +449,7 @@ class HyperweightsPredictorTrainerComb(pl.LightningModule):
 
         
         l2_loss = self.criterion_mse(weights, gt_weights)
-        if self.loss_type == 'wsim':
-            cosine_loss = self.criterion_cos(F.normalize(weights[:, :-1], p=2, dim=-1), F.normalize(gt_weights[:, :-1], p=2, dim=-1),
-                                         torch.ones(weights[:, :-1].size(0), device=self.device))
-            loss = cosine_loss + self.lambda_l2 * l2_loss
-        elif self.loss_type == 'pmse':
+        if self.loss_type == 'pmse':
             loss = self.criterion_mse(output, uk_vxl_resp)
         else:
             raise ValueError()

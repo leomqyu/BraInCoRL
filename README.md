@@ -48,7 +48,7 @@ pytorch==2.5.1
     └── query_imgs.npz
     ```
 
-### 3. Train
+### 3. Training
 
 For training, run `train.sh` and you can set the hyperparameters in the shell script.
 
