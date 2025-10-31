@@ -1,4 +1,4 @@
-## BraInCoRL<br><sub> [NeurIPS 2025] Meta-Learning an In-Context Transformer Model of Human Higher Visual Cortex</sub>
+## BraInCoRL<br><sub> Meta-Learning an In-Context Transformer Model of Human Higher Visual Cortex (NeurIPS 2025)</sub>
 
 [arXiv](https://arxiv.org/abs/2505.15813) | [PDF](https://arxiv.org/pdf/2505.15813)
 
